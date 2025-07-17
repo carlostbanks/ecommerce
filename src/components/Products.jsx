@@ -10,29 +10,29 @@ import toast from "react-hot-toast";
 
 const Products = () => {
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState(data);
+  const [filter, setFilter] = useState([]);
   const [loading, setLoading] = useState(false);
-  let componentMounted = true;
 
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
     dispatch(addCart(product));
+    toast.success("Added to cart successfully!");
   };
 
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const response = await fetch("https://fakestoreapi.com/products/");
-      if (componentMounted) {
-        setData(await response.clone().json());
-        setFilter(await response.json());
+      try {
+        const response = await fetch("https://fakestoreapi.com/products/");
+        const products = await response.json();
+        setData(products);
+        setFilter(products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
         setLoading(false);
       }
-
-      return () => {
-        componentMounted = false;
-      };
     };
 
     getProducts();
@@ -44,24 +44,11 @@ const Products = () => {
         <div className="col-12 py-5 text-center">
           <Skeleton height={40} width={560} />
         </div>
-        <div className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={592} />
-        </div>
-        <div className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={592} />
-        </div>
-        <div className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={592} />
-        </div>
-        <div className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={592} />
-        </div>
-        <div className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={592} />
-        </div>
-        <div className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
-          <Skeleton height={592} />
-        </div>
+        {[1, 2, 3, 4, 5, 6].map((item) => (
+          <div key={item} className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4">
+            <Skeleton height={400} />
+          </div>
+        ))}
       </>
     );
   };
@@ -114,42 +101,65 @@ const Products = () => {
               key={product.id}
               className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4"
             >
-              <div className="card text-center h-100" key={product.id}>
-                <img
-                  className="card-img-top p-3"
-                  src={product.image}
-                  alt="Card"
-                  height={300}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">
-                    {product.title.substring(0, 12)}...
+              <div className="card text-center h-100 shadow-sm border-0" key={product.id}>
+                {/* Clickable Image */}
+                <Link to={"/product/" + product.id} className="text-decoration-none">
+                  <div className="card-img-container" style={{ height: "300px", overflow: "hidden", backgroundColor: "#f8f9fa" }}>
+                    <img
+                      className="card-img-top p-3 h-100"
+                      src={product.image}
+                      alt={product.title}
+                      style={{ 
+                        objectFit: "contain",
+                        transition: "transform 0.3s ease",
+                        cursor: "pointer"
+                      }}
+                      onMouseEnter={(e) => e.target.style.transform = "scale(1.05)"}
+                      onMouseLeave={(e) => e.target.style.transform = "scale(1)"}
+                    />
+                  </div>
+                </Link>
+                
+                <div className="card-body d-flex flex-column">
+                  {/* Product Title */}
+                  <h5 className="card-title mb-2" style={{ fontSize: "1rem", lineHeight: "1.2" }}>
+                    {product.title.length > 50 ? product.title.substring(0, 50) + "..." : product.title}
                   </h5>
-                  <p className="card-text">
-                    {product.description.substring(0, 90)}...
+                  
+                  {/* Rating */}
+                  <div className="mb-2">
+                    <span className="text-warning me-1">
+                      {"★".repeat(Math.floor(product.rating?.rate || 0))}
+                      {"☆".repeat(5 - Math.floor(product.rating?.rate || 0))}
+                    </span>
+                    <small className="text-muted">({product.rating?.rate})</small>
+                  </div>
+                  
+                  {/* Description */}
+                  <p className="card-text text-muted small mb-3" style={{ fontSize: "0.85rem" }}>
+                    {product.description.length > 80 ? product.description.substring(0, 80) + "..." : product.description}
                   </p>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item lead">$ {product.price}</li>
-                  {/* <li className="list-group-item">Dapibus ac facilisis in</li>
-                    <li className="list-group-item">Vestibulum at eros</li> */}
-                </ul>
-                <div className="card-body">
-                  <Link
-                    to={"/product/" + product.id}
-                    className="btn btn-dark m-1"
-                  >
-                    Buy Now
-                  </Link>
-                  <button
-                    className="btn btn-dark m-1"
-                    onClick={() => {
-                      toast.success("Added to cart");
-                      addProduct(product);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
+                  
+                  {/* Price */}
+                  <div className="mt-auto">
+                    <h4 className="text-dark fw-bold mb-3">${product.price}</h4>
+                    
+                    {/* Action Buttons */}
+                    <div className="d-flex gap-2">
+                      <Link
+                        to={"/product/" + product.id}
+                        className="btn btn-dark btn-sm flex-fill"
+                      >
+                        View Details
+                      </Link>
+                      <button
+                        className="btn btn-outline-dark btn-sm flex-fill"
+                        onClick={() => addProduct(product)}
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -158,6 +168,7 @@ const Products = () => {
       </>
     );
   };
+
   return (
     <>
       <div className="container my-3 py-3">
