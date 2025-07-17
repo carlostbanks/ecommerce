@@ -177,7 +177,7 @@ const Cart = () => {
                             ${(item.price * item.qty).toFixed(2)}
                           </h6>
                           <small className="text-muted d-block mb-2">
-                            ${item.price} each
+                            ${parseFloat(item.price).toFixed(2)} each
                           </small>
                           <button
                             className="btn btn-link text-danger p-0 small"

@@ -142,7 +142,7 @@ const Products = () => {
                   
                   {/* Price */}
                   <div className="mt-auto">
-                    <h4 className="text-dark fw-bold mb-3">${product.price}</h4>
+                    <h4 className="text-dark fw-bold mb-3">${parseFloat(product.price).toFixed(2)}</h4>
                     
                     {/* Action Buttons */}
                     <div className="d-flex gap-2">

@@ -128,7 +128,7 @@ const Product = () => {
             </div>
             
             <div className="mb-4">
-              <h2 className="text-dark fw-bold mb-0">${product.price}</h2>
+              <h2 className="text-dark fw-bold mb-0">${parseFloat(product.price).toFixed(2)}</h2>
               <small className="text-muted">Free shipping on orders over $50</small>
             </div>
 
