@@ -13,16 +13,16 @@ const Footer = () => {
               Your trusted destination for quality products, fast shipping, and exceptional customer service.
             </p>
             <div className="d-flex gap-3">
-              <a href="#" className="text-light">
+              <a href="https://facebook.com" className="text-light" target="_blank" rel="noopener noreferrer">
                 <i className="fa fa-facebook fa-lg"></i>
               </a>
-              <a href="#" className="text-light">
+              <a href="https://twitter.com" className="text-light" target="_blank" rel="noopener noreferrer">
                 <i className="fa fa-twitter fa-lg"></i>
               </a>
-              <a href="#" className="text-light">
+              <a href="https://instagram.com" className="text-light" target="_blank" rel="noopener noreferrer">
                 <i className="fa fa-instagram fa-lg"></i>
               </a>
-              <a href="#" className="text-light">
+              <a href="https://linkedin.com" className="text-light" target="_blank" rel="noopener noreferrer">
                 <i className="fa fa-linkedin fa-lg"></i>
               </a>
             </div>
@@ -60,24 +60,24 @@ const Footer = () => {
             <h6 className="fw-bold mb-3">Categories</h6>
             <ul className="list-unstyled">
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/product" className="text-light text-decoration-none">
                   Men's Clothing
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/product" className="text-light text-decoration-none">
                   Women's Clothing
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/product" className="text-light text-decoration-none">
                   Jewelry
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/product" className="text-light text-decoration-none">
                   Electronics
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -87,24 +87,24 @@ const Footer = () => {
             <h6 className="fw-bold mb-3">Customer Service</h6>
             <ul className="list-unstyled">
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/contact" className="text-light text-decoration-none">
                   Help Center
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/contact" className="text-light text-decoration-none">
                   Returns
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/contact" className="text-light text-decoration-none">
                   Shipping Info
-                </a>
+                </Link>
               </li>
               <li className="mb-2">
-                <a href="#" className="text-light text-decoration-none">
+                <Link to="/contact" className="text-light text-decoration-none">
                   Size Guide
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -140,15 +140,15 @@ const Footer = () => {
           </div>
           <div className="col-md-6 text-md-end">
             <div className="d-flex justify-content-md-end gap-3">
-              <a href="#" className="text-light text-decoration-none small">
+              <Link to="/contact" className="text-light text-decoration-none small">
                 Privacy Policy
-              </a>
-              <a href="#" className="text-light text-decoration-none small">
+              </Link>
+              <Link to="/contact" className="text-light text-decoration-none small">
                 Terms of Service
-              </a>
-              <a href="#" className="text-light text-decoration-none small">
+              </Link>
+              <Link to="/contact" className="text-light text-decoration-none small">
                 Cookies
-              </a>
+              </Link>
             </div>
           </div>
         </div>

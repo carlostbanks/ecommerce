@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Skeleton from "react-loading-skeleton";
 import { Link, useParams } from "react-router-dom";
 import Marquee from "react-fast-marquee";
@@ -22,7 +22,7 @@ const Product = () => {
   const [stockStatus, setStockStatus] = useState({ inStock: true, quantity: 0 });
 
   // Fetch product data
-  const fetchProductData = async () => {
+  const fetchProductData = useCallback(async () => {
     setLoading(true);
     
     try {
@@ -54,11 +54,11 @@ const Product = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchProductData();
-  }, [id]);
+  }, [fetchProductData]);
 
   const addProduct = (product) => {
     dispatch(addCartWithValidation(product, stockStatus, variants, selectedVariant));
